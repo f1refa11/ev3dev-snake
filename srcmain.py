@@ -11,7 +11,7 @@ print("Finished loading 'Button'...")
 SIZE = 12
 HEIGHT = (128-(128%SIZE))//SIZE
 WIDTH = (178-(178%SIZE))//SIZE
-FPS = 7
+FPS = 9
 
 x = 1
 y = 1
@@ -40,7 +40,7 @@ while 1:
         framecount += 1
     else:
         if x == randX and y == randY:
-            DISPLAY.draw.rectangle((randX*SIZE+4, randY*SIZE+4, randX*SIZE+9, randY*SIZE+9), fill='white')
+            DISPLAY._draw.rectangle((randX*SIZE+4, randY*SIZE+4, randX*SIZE+9, randY*SIZE+9), fill='white')
             randX = randint(WIDTH)
             randY = randint(HEIGHT)
             length += 1
@@ -63,6 +63,6 @@ while 1:
         positions = positions[-length:]
         for a,b in positions:
             DISPLAY.draw.rectangle((a*SIZE+4, b*SIZE+4, a*SIZE+9, b*SIZE+9), None, 'black')
-        DISPLAY.draw.rectangle((randX*SIZE+4, randY*SIZE+4, randX*SIZE+9, randY*SIZE+9), 'black', 'black')
+        DISPLAY._draw.rectangle((randX*SIZE+4, randY*SIZE+4, randX*SIZE+9, randY*SIZE+9), 'black', 'black')
         framecount = 0
     DISPLAY.update()
