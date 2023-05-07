@@ -1,34 +1,31 @@
 #!/usr/bin/env python3
+# WIDTH = 178
+# HEIGHT = 128
 from fastrand import pcg32bounded as randint
 print("loaded fastrand...")
 from ev3dev2.display import Display
 print("Finished loading 'Display'...")
 from ev3dev2.button import Button
 print("Finished loading 'Button'...")
-# WIDTH = 178
-# HEIGHT = 128
-# from sys import getsizeof
 
 SIZE = 12
 HEIGHT = (128-(128%SIZE))//SIZE
 WIDTH = (178-(178%SIZE))//SIZE
+FPS = 7
 
 x = 1
 y = 1
-
 positions = [(x,y)]
 length = 1
-
-DISPLAY = Display()
-
 moving = 0
-DISPLAY.clear()
-DISPLAY.draw.rectangle((x*SIZE+4, y*SIZE+4, x*SIZE+9, y*SIZE+9), None, 'black')
+framecount = 0
 randX = randint(WIDTH)
 randY = randint(HEIGHT)
+
+DISPLAY = Display()
 BUTTON = Button()
-FPS = 7
-framecount = 0
+
+DISPLAY.clear()
 while 1:
     BUTTON.process()
     if BUTTON.left:
