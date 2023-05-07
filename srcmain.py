@@ -19,8 +19,8 @@ positions = [(x,y)]
 length = 1
 moving = 0
 framecount = 0
-randX = randint(WIDTH)
-randY = randint(HEIGHT)
+randX = randint(WIDTH+1)
+randY = randint(HEIGHT+1)
 
 DISPLAY = Display()
 BUTTON = Button()

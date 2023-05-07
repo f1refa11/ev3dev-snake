@@ -18,8 +18,8 @@ cdef positions = [(x,y)]
 cdef length = 1
 cdef unsigned char moving = 0
 cdef unsigned char framecount = 0
-cdef unsigned char randX = randint(WIDTH)
-cdef unsigned char randY = randint(HEIGHT)
+cdef unsigned char randX = randint(WIDTH+1)
+cdef unsigned char randY = randint(HEIGHT+1)
 
 cdef DISPLAY = Display()
 cdef BUTTON = Button()
