@@ -9,8 +9,8 @@ from ev3dev2.button import Button
 print("Finished loading 'Button'...")
 
 SIZE = 12
-HEIGHT = (128-(128%SIZE))//SIZE
-WIDTH = (178-(178%SIZE))//SIZE
+HEIGHT = 14
+WIDTH = 9
 FPS = 9
 
 x = 1
