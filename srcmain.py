@@ -9,8 +9,8 @@ from ev3dev2.button import Button
 print("Finished loading 'Button'...")
 
 SIZE = 12
-HEIGHT = 14
-WIDTH = 9
+HEIGHT = 9
+WIDTH = 14
 FPS = 9
 
 x = 1
@@ -52,6 +52,14 @@ while 1:
             y -= 1
         elif moving == 4:
             y += 1
+        if y < 0:
+            y = HEIGHT
+        elif y > HEIGHT:
+            y = 0
+        elif x < 0:
+            x = WIDTH
+        elif x > WIDTH:
+            x = 0
         positions.append((x, y))
         c,d = positions[0]
         size1 = c*SIZE+4
