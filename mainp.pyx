@@ -1,33 +1,30 @@
+# WIDTH = 178
+# HEIGHT = 128
 from fastrand import pcg32bounded as randint
 print("loaded fastrand...")
 from ev3dev2.display import Display
 print("Finished loading 'Display'...")
 from ev3dev2.button import Button
 print("Finished loading 'Button'...")
-# WIDTH = 178
-# HEIGHT = 128
-# from sys import getsizeof
 
 cdef unsigned char SIZE = 12
-cdef unsigned char HEIGHT = (128-(128%SIZE))//SIZE
-cdef unsigned char WIDTH = (178-(178%SIZE))//SIZE
+cdef unsigned char HEIGHT = 9
+cdef unsigned char WIDTH = 14
+cdef unsigned char FPS = 9
 
 cdef unsigned char x = 1
 cdef unsigned char y = 1
-
 cdef positions = [(x,y)]
 cdef length = 1
-
-cdef DISPLAY = Display()
-
 cdef unsigned char moving = 0
-DISPLAY.clear()
-DISPLAY.draw.rectangle((x*SIZE+4, y*SIZE+4, x*SIZE+9, y*SIZE+9), None, 'black')
+cdef unsigned char framecount = 0
 cdef unsigned char randX = randint(WIDTH)
 cdef unsigned char randY = randint(HEIGHT)
+
+cdef DISPLAY = Display()
 cdef BUTTON = Button()
-cdef unsigned char FPS = 7
-cdef unsigned char framecount = 0
+
+DISPLAY.clear()
 while 1:
     BUTTON.process()
     if BUTTON.left:
@@ -42,7 +39,7 @@ while 1:
         framecount += 1
     else:
         if x == randX and y == randY:
-            DISPLAY.draw.rectangle((randX*SIZE+4, randY*SIZE+4, randX*SIZE+9, randY*SIZE+9), fill='white')
+            DISPLAY._draw.rectangle((randX*SIZE+4, randY*SIZE+4, randX*SIZE+9, randY*SIZE+9), fill='white')
             randX = randint(WIDTH)
             randY = randint(HEIGHT)
             length += 1
@@ -54,6 +51,14 @@ while 1:
             y -= 1
         elif moving == 4:
             y += 1
+        if y < 0:
+            y = HEIGHT
+        elif y > HEIGHT:
+            y = 0
+        elif x < 0:
+            x = WIDTH
+        elif x > WIDTH:
+            x = 0
         positions.append((x, y))
         c,d = positions[0]
         size1 = c*SIZE+4
@@ -65,6 +70,6 @@ while 1:
         positions = positions[-length:]
         for a,b in positions:
             DISPLAY.draw.rectangle((a*SIZE+4, b*SIZE+4, a*SIZE+9, b*SIZE+9), None, 'black')
-        DISPLAY.draw.rectangle((randX*SIZE+4, randY*SIZE+4, randX*SIZE+9, randY*SIZE+9), 'black', 'black')
+        DISPLAY._draw.rectangle((randX*SIZE+4, randY*SIZE+4, randX*SIZE+9, randY*SIZE+9), 'black', 'black')
         framecount = 0
     DISPLAY.update()
