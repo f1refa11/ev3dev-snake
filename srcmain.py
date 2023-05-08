@@ -7,6 +7,7 @@ from ev3dev2.display import Display
 print("Finished loading 'Display'...")
 from ev3dev2.button import Button
 print("Finished loading 'Button'...")
+# from time import time
 
 SIZE = 12
 HEIGHT = 9
@@ -27,7 +28,9 @@ BUTTON = Button()
 
 DISPLAY.clear()
 while 1:
+	# a1 = time()
 	BUTTON.process()
+	# a2 = time()
 	if BUTTON.left:
 		moving = 1
 	elif BUTTON.right:
@@ -36,14 +39,18 @@ while 1:
 		moving = 3
 	elif BUTTON.down:
 		moving = 4
+	a3 = time()
 	if framecount < FPS:
 		framecount += 1
 	else:
+		# print("button.process:", str(a2-a1))
+		# print("button_events:",str(a3-a2))
 		if x == randX and y == randY:
 			DISPLAY._draw.rectangle((randX*SIZE+4, randY*SIZE+4, randX*SIZE+9, randY*SIZE+9), fill='white')
 			randX = randint(WIDTH)
 			randY = randint(HEIGHT)
 			length += 1
+		# a1 = time()
 		if moving == 1:
 			x -= 1
 		elif moving == 2:
@@ -60,6 +67,7 @@ while 1:
 			x = WIDTH
 		elif x > WIDTH:
 			x = 0
+		# print("moving:",str(time()-a1))
 		positions.append((x, y))
 		c,d = positions[0]
 		size1 = c*SIZE+4
